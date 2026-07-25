@@ -1,0 +1,17 @@
+In level editor:
+Use right mouse button to delete blocks
+Press T to test level
+Hold space to show the list of blocks
+If you're creating your own level, don't forget to place the start block
+If you load a level, you don't need to do this
+To load a level from PR2, go to https://pr2hub.com/levels/LEVEL_ID.txt, press Ctrl+S to download the file and put it in the "levels" folder
+Level saving doesn't work yet
+Art may take a while to load
+
+In game:
+Your stats are 100 45 60
+Press H to switch hat
+Press right Ctrl to use your hat
+
+You can create custom blocks or edit existing blocks by editing the blocks.json file in the blocks folder
+Press ESC to close the game
