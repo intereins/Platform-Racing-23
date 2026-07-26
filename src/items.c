@@ -11,17 +11,16 @@
 #include "animation.h"
 
 #define MINE_PLACING_TIME 1000
+#define LASER_WIDTH 43
 
 Gl_texture* item_textures[ITEM_COUNT];
 Gl_texture* tex_laser;
 Gl_texture* tex_laser_light;
 Extended_list* placed_mines_list = NULL;
-//Extended_list* shot_lasers_list = NULL;
 
 void init_items()
 {
-	placed_mines_list = exl_create(10, sizeof(Placed_mine), 2);
-	//shot_lasers_list = exl_create(10, sizeof(Shot_laser), 2);
+	placed_mines_list = exl_create(10, sizeof(Placed_mine), 2);	
 
 	item_textures[ITEM_TELEPORT] = gtex_load_texture("assets/img/items/teleport.png");
 	item_textures[ITEM_SJUMP] = gtex_load_texture("assets/img/items/super_jump.png");
@@ -203,7 +202,7 @@ void use_item(Player* pl)
 		case ITEM_GUN:
 			used = true;
 			play_sound(snd_laser_shoot);
-			add_obj(create_bullet(pl->direction ? pl->x : (pl->x-50), pl->y-30, pl->direction ? 12 : -12, 0));
+			add_obj(create_bullet(pl->direction ? pl->x : pl->x - LASER_WIDTH, pl->y-30, pl->direction ? 12 : -12, 0));
 			pl->vel_x += pl->direction ? -15 : 15;
 			break;
 
@@ -286,21 +285,35 @@ void handle_placed_mines()
 }
 
 void update_bullet(Bullet* bullet)
-{
+{	
 	bullet->x += bullet->vel_x;
 	bullet->y += bullet->vel_y;
-	Block* block = pr2_get_block_from_pos(bullet->x, bullet->y, false);
-	if(block != NULL)
+	bool done = false;
+	Block* block1;
+	Block* block2;
+	if(bullet->vel_x > 0)
 	{
-		switch(block_table[block->block_code].gun_reaction)
+		block1 = pr2_get_block_from_pos(bullet->x, bullet->y, false);
+		block2 = pr2_get_block_from_pos(bullet->x+LASER_WIDTH, bullet->y, false);
+	}
+	else
+	{
+		block1 = pr2_get_block_from_pos(bullet->x+LASER_WIDTH, bullet->y, false);
+		block2 = pr2_get_block_from_pos(bullet->x, bullet->y, false);
+	}
+
+repeat:
+	if(block1 != NULL)
+	{
+		switch(block_table[block1->block_code].gun_reaction)
 		{
 			case IR_SHATTER:
-				block_break(block);
+				block_break(block1);
 				bullet->object.dead = true;
 				break;
 
 			case IR_EXPLODE:
-				block_explode(block);
+				block_explode(block1);
 				bullet->object.dead = true;
 				break;
 
@@ -308,9 +321,14 @@ void update_bullet(Bullet* bullet)
 				play_sound(snd_laser_hit);
 				bullet->object.dead = true;
 				break;
-
-
 		}
+	}
+
+	if(!bullet->object.dead &! done)
+	{
+		block1 = block2;
+		done = true;
+		goto repeat;
 	}
 }
 
