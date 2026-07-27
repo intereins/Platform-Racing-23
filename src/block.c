@@ -204,11 +204,7 @@ int convert_pr2old_id_to_pr4(int id)
         case  7: return BL_ARROW_LEFT;
         case  8: return BL_ARROW_RIGHT;
         case  9: return BL_MINE;
-        case 10: return BL_ITEM;
-        case 11: return 2;
-        case 12: return 2;
-        case 13: return 2;
-        case 14: return 2;
+        case 10: return BL_ITEM;       
         case 15: return BL_ICE;
         case 16: return BL_FINISH;
         case 17: return BL_CRUMBLE;
@@ -222,6 +218,34 @@ int convert_pr2old_id_to_pr4(int id)
         case 25: return BL_ITEM_INF;
         case 26: return BL_STAT_INC;
         case 27: return BL_STAT_DEC;
+    }
+
+	switch(id)
+    {
+        case 100: return BL_BASIC_1;
+        case 101: return BL_BASIC_2;
+        case 102: return BL_BASIC_3;
+        case 103: return BL_BASIC_4;
+        case 104: return BL_BRICKS;
+        case 105: return BL_ARROW_DOWN;
+        case 106: return BL_ARROW_UP;
+        case 107: return BL_ARROW_LEFT;
+        case 108: return BL_ARROW_RIGHT;
+        case 109: return BL_MINE;
+        case 110: return BL_ITEM;        
+        case 115: return BL_ICE;
+        case 116: return BL_FINISH;
+        case 117: return BL_CRUMBLE;
+        case 118: return BL_VANISH;
+        case 119: return BL_MOVE;
+        case 120: return BL_WATER;
+        case 121: return BL_ROT_R;
+        case 122: return BL_ROT_L;
+        case 123: return BL_PUSH;
+        case 124: return BL_NET;
+        case 125: return BL_ITEM_INF;
+        case 126: return BL_STAT_INC;
+        case 127: return BL_STAT_DEC;
     }
     return 3;
 }
