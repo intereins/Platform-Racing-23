@@ -5,6 +5,13 @@
 #include "def.h"
 #include "control2.h"
 
+char* copy_str(const char* str)
+{
+    char* ret = malloc(strlen(str)+1);
+    strcpy(ret, str);
+    return ret;
+}
+
 bool is_between(int x, int y, int x1, int y1, int x2, int y2)
 {
     return x >= x1 && x <= x2 && y >= y1 && y <= y2;
