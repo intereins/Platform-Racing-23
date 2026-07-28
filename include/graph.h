@@ -116,5 +116,5 @@ void render_and_handle_menu(Menu *menu, int x, int y);
 void render_list_elm(const char *title, const char *desc, int x, int y, int w, int h, byte state);
 void render_and_handle_text_input(Text_input *input);
 void render_and_handle_gui_list(Gui_list *list);
-
+void add_item_to_gui_list(Gui_list *list, const char *name);
 Gui_list *create_gui_list(int x, int y, int w, int item_count, ...);
