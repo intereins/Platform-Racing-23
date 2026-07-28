@@ -47,27 +47,7 @@ Gui_list* gui_list_music;
 
 void init_gui()
 {
-    gui_list_music = create_gui_list((DEF_GUI_W-350)/2, DEF_GUI_H-50, 350, 20,
-        "none",
-        "orbital trance",
-        "code",
-        "paradise on e",
-        "crying soul",
-        "my vision",
-        "switchblade",
-        "the wires",
-        "before mydnite",
-        "broked it",
-        "hello",
-        "pyrokinesis",
-        "flowerz n herbs",
-        "instrumental #4",
-        "prismatic",
-        "blizzard",
-        "toodaloo",
-        "night shade",
-        "pasture",
-        "sunset raiders");
+    gui_list_music = create_gui_list((DEF_GUI_W-350)/2, DEF_GUI_H-50, 350, 20, "none");
 }
 
 void init_font()
