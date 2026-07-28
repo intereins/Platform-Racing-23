@@ -1,6 +1,8 @@
 #include "sounds.h"
 #include "items.h"
 #include "def.h"
+#include "tools.h"
+#include "graph.h"
 
 ALLEGRO_SAMPLE* test_sound;
 ALLEGRO_SAMPLE* snd_jump;
