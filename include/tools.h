@@ -4,6 +4,7 @@
 
 #define MAX(a, b) (((a) > (b)) ? (a) : (b))
 
+char* copy_str(const char* str);
 bool is_between(int x, int y, int x1, int y1, int x2, int y2);
 void hsv_to_rgb(float h, float s, float v, int *r, int *g, int *b);
 int convert_string_to_int(const char *str);
