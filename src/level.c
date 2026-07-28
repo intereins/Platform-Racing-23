@@ -528,8 +528,7 @@ Block* find_teleport_of_color(int start_x, int start_y, int color)
 }
 
 void render_and_handle_level_gui()
-{
-    return;
+{ 
     static int current_music_id = -1;
     init_gui_rendering();
     render_and_handle_gui_list(gui_list_music);
@@ -537,6 +536,5 @@ void render_and_handle_level_gui()
     {
         play_music(gui_list_music->selected);
         current_music_id = gui_list_music->selected;
-
     }
 }
