@@ -462,3 +462,10 @@ Gui_list* create_gui_list(int x, int y, int w, int item_count, ...)
     va_end(args);
     return ret;
 }
+
+void add_item_to_gui_list(Gui_list* list, const char* name)
+{
+    list->items = realloc(list->items, (list->item_count+1) * sizeof(void*));
+    list->items[list->item_count] = copy_str(name);
+    list->item_count++;    
+}
