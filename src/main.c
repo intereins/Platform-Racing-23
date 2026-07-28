@@ -70,6 +70,7 @@ int main()
     al_start_timer( timer_FPS );
 
     init_block_pieces();
+    init_gui();
     init_audio();
     load_textures();
     load_sounds();
@@ -79,8 +80,7 @@ int main()
     init_animations();
     init_objects();
     init_level_editor();
-    init_rendering_to_texture();
-    init_gui();
+    init_rendering_to_texture();    
     srand(time(NULL));
 
     player_init(&the_player);
