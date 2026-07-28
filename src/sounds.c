@@ -25,8 +25,8 @@ ALLEGRO_SAMPLE* snd_laser_shoot;
 ALLEGRO_SAMPLE* snd_laser_hit;
 ALLEGRO_SAMPLE* snd_sword;
 
-//ALLEGRO_SAMPLE* music[20];
 ALLEGRO_AUDIO_STREAM* music;
+Pointer_list* music_files_list;
 
 bool mute = false;
 static int2 sound_played_at = {0, 0};
@@ -40,20 +40,19 @@ void reset_sound_played_at()
 	sound_played_at = (int2) {0, 0};
 }
 
-const bool play_bump_snd[29] =
-{
-    1, 1, 1, 1, 1,
-    0,              //bricks
-    1, 1, 1, 1,
-    0, 0, 0, 0,     //boosters
-    1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
-};
-
 void init_audio()
 {
     al_install_audio();
     al_init_acodec_addon();
     al_reserve_samples(30);
+	music_files_list = get_directory_contents("assets/music");
+    for(int i=0; i<music_files_list->elm_counter; i++)
+    {
+        char* track_name = copy_str(ptrl_get_pointer(music_files_list, i));
+        track_name[strlen(track_name)-4] = 0;        
+        add_item_to_gui_list(gui_list_music, track_name);
+        free(track_name);       
+    }
 }
 
 void play_bump_sound(int x, int y, int type)
@@ -112,12 +111,8 @@ void play_sound(ALLEGRO_SAMPLE* sound)
 
 void play_music(int id)
 {
-    return;
-    printf("playing id %i\n", id);
     if(!mute)
-    {
-        //music[0] = al_load_audio_stream("assets/music/extracted realms.ogg", 4, 4);
-        //al_play_a
+    {    
         if(id == 0)
         {
             if(music != NULL)
@@ -135,21 +130,21 @@ void play_music(int id)
             al_destroy_audio_stream(music);
             music = NULL;
         }        
-        char filename[32];
-        sprintf(filename, "assets/music/%i.ogg", id);
-        music = al_load_audio_stream(filename, 4, 2048);
-        al_attach_audio_stream_to_mixer(music, al_get_default_mixer());
-        al_set_audio_stream_playmode(music, ALLEGRO_PLAYMODE_LOOP);
-        al_set_audio_stream_playing(music, true);
-
-        //al_play_sample(music[0], 1, 0, 1, ALLEGRO_PLAYMODE_LOOP, &playing_music_id);
-
-        /*if(is_music_playing)
+        if(music_files_list == NULL)
         {
-            al_stop_sample(&playing_music_id);
+            return;
         }
-        al_play_sample(music[id], 1, 0, 1, ALLEGRO_PLAYMODE_LOOP, &playing_music_id);
-        is_music_playing = true;*/
+        char* track_name = ptrl_get_pointer(music_files_list, id-1);        
+        char filename[64];
+
+        sprintf(filename, "assets/music/%s", track_name);        
+        music = al_load_audio_stream(filename, 4, 2048);
+        if(music != NULL)
+        {
+            al_attach_audio_stream_to_mixer(music, al_get_default_mixer());
+            al_set_audio_stream_playmode(music, ALLEGRO_PLAYMODE_LOOP);
+            al_set_audio_stream_playing(music, true);
+        }
     }
 }
 
