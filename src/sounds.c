@@ -3,6 +3,7 @@
 #include "def.h"
 #include "tools.h"
 #include "graph.h"
+#include "system_funcs.h"
 
 ALLEGRO_SAMPLE* test_sound;
 ALLEGRO_SAMPLE* snd_jump;
