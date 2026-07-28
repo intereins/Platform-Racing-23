@@ -47,7 +47,7 @@ Gui_list* gui_list_music;
 
 void init_gui()
 {
-    gui_list_music = create_gui_list((DEF_GUI_W-350)/2, DEF_GUI_H-50, 350, 20, "none");
+    gui_list_music = create_gui_list((DEF_GUI_W-350)/2, DEF_GUI_H-50, 350, 1, "none");
 }
 
 void init_font()
