@@ -105,6 +105,7 @@ void set_block_ptr(Level* lvl, int x, int y, Block* ptr)
         index = add_chunk_to_level(lvl, chunk_x, chunk_y);
     }
     chunk = exl_get_elm_ptr(lvl->chunk_list, index);
+    free_block(chunk->block[y % BLOCK_CHUNK_SZ][x % BLOCK_CHUNK_SZ]);
     chunk->block[y % BLOCK_CHUNK_SZ][x % BLOCK_CHUNK_SZ] = ptr;
 }
 
