@@ -40,6 +40,11 @@ void destroy_level(Level* lvl)
     }
 }
 
+void free_block(Block* block)
+{
+    free(block);
+}
+
 int get_block_chunk_index(Extended_list* chunk_list, int x, int y)
 {
     for(int i=0; i<chunk_list->elm_count; i++)
@@ -295,11 +300,6 @@ void update_block_offsets_on_chunk(Chunk* chunk)
             update_block_offset(block);
         }
     }
-}
-
-void free_block(Block* block)
-{
-    free(block);
 }
 
 void set_block_on_chunk(Chunk* chunk, int x, int y, int type)
